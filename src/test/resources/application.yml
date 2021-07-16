@@ -1,0 +1,31 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        output:
+          destination: myDestination
+          binder: localBinder
+        input:
+          destination: myDestination
+          binder: localBinder
+          group: consumerGroup
+          consumer:
+            max-attempts: 1
+      binders:
+        localBinder:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: 192.168.86.24
+                port: 5672
+                username: test
+                password: test@123
+                virtual-host: /
+      rabbit:
+        bindings:
+          input:
+            consumer:
+              autoBindDlq: true
+              dlqTtl: 3000
+              dlqDeadLetterExchange:
