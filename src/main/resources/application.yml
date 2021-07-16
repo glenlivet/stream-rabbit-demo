@@ -8,9 +8,9 @@ spring:
         input:
           destination: myDestination
           binder: localBinder
-          group: consumerGroup
+          group: consumerGroup    # 消息组，当需要重发的时候，必输
           consumer:
-            max-attempts: 1
+            max-attempts: 1     # 消息不会自动重发
       binders:
         localBinder:
           type: rabbit
@@ -26,6 +26,6 @@ spring:
         bindings:
           input:
             consumer:
-              autoBindDlq: true
-              dlqTtl: 3000
-              dlqDeadLetterExchange:
+              autoBindDlq: true        # 自动启用DLQ
+              dlqTtl: 3000             # DLQ停3秒再走
+              dlqDeadLetterExchange:    # 关联DLX
