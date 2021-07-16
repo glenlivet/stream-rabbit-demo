@@ -22,6 +22,9 @@ public class DemoApplicationTests {
                 .send(MessageBuilder.withPayload("fail")
                         .build());
         Thread.sleep(20000);
+        /**
+         * 应该执行3次
+         */
         assertEquals(DemoApplication.countMap.get("fail"), new Integer(3));
     }
 
@@ -31,6 +34,9 @@ public class DemoApplicationTests {
                 .send(MessageBuilder.withPayload("success")
                         .build());
         Thread.sleep(20000);
+        /**
+         * 应该执行1次
+         */
         assertEquals(DemoApplication.countMap.get("success"), new Integer(1));
     }
 }

@@ -32,12 +32,18 @@ public class DemoApplication {
 	@StreamListener(Processor.INPUT)
 	@MessageRequeue
 	public synchronized void countRetry(Message message, String name) {
+		/**
+		 * 每执行一次 根据name计数
+		 */
 		Integer count = countMap.get(name);
 		if (count == null) {
 			countMap.put(name, 1);
 		} else {
 			countMap.put(name, ++count);
 		}
+		/**
+		 * 只有当name == "fail" 的时候报错。
+		 */
 		if ("fail".equals(name)) {
 			throw new RuntimeException("failed.");
 		}
